@@ -27,7 +27,7 @@ in
 let
 
   # we want this to hold only for arm (32 and 64bit) for now.
-  isLinuxCross = buildPlatform != hostPlatform && hostPlatform.isLinux && (hostPlatform.isAarch32 || hostPlatform.isAarch64);
+  isLinuxCross = buildPlatform != hostPlatform && hostPlatform.isLinux && hostPlatform.isAarch32;
   qemuIservWrapper = writeScriptBin "iserv-wrapper" ''
     #!${stdenv.shell}
     set -euo pipefail

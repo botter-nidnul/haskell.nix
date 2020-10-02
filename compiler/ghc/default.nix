@@ -109,7 +109,7 @@ let
   ''
   # musl doesn't have a system-linker. Only on x86, and on x86 we need it, as
   # our elf linker for x86_64 is broken.
-  + stdenv.lib.optionalString (targetPlatform.isMusl && !targetPlatform.isx86) ''
+  + stdenv.lib.optionalString (targetPlatform.isMusl && !targetPlatform.isAarch64) ''
     compiler_CONFIGURE_OPTS += --flags=-dynamic-system-linker
   ''
   # While split sections are now enabled by default in ghc 8.8 for windows,
