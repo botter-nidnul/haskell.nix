@@ -37,7 +37,7 @@ let self =
 , enableShared ? ghc.enableShared && component.enableShared && !haskellLib.isCrossHost
                # on x86 we'll use shared libraries, even with musl m(
                # ghc's internal linker seems to be broken on x86.
-               && !(stdenv.hostPlatform.isMusl && !stdenv.hostPlatform.isx86)
+               && !(stdenv.hostPlatform.isMusl && !stdenv.hostPlatform.isAarch64)
 , enableDeadCodeElimination ? component.enableDeadCodeElimination
 
 # Options for Haddock generation
@@ -136,7 +136,7 @@ let
       [ "--with-gcc=${stdenv.cc.targetPrefix}cc"
       ] ++
       # BINTOOLS
-      (if stdenv.hostPlatform.isLinux
+      (if stdenv.hostPlatform.isLinux && !stdenv.targetPlatform.isAarch64
         # use gold as the linker on linux to improve link times
         then [
           "--with-ld=${stdenv.cc.bintools.targetPrefix}ld.gold"
